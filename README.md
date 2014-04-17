@@ -80,6 +80,15 @@ If returns `true`, then you can authenticate the user's session with `address` (
 address used to sign the challenge).
 
 
+## Integration example
+
+Ruby on Rails application using the bitid gem :
+https://github.com/bitid/bitid-demo
+
+Live demonstration :
+http://bitid-demo.herokuapp.com/
+
+
 ## Author
 
 Eric Larchevêque

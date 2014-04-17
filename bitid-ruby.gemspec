@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'bitid/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "bitid-ruby"
+  spec.name          = "bitid"
   spec.version       = Bitid::VERSION
   spec.authors       = ["Eric Larchevêque"]
   spec.email         = ["elarch@gmail.com"]

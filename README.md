@@ -33,13 +33,12 @@ bitid = Bitid.new(nonce:@nonce, callback:@callback)
 Once the `Bitid` object is initialized, you have access to the following methods :
 
 ```
-bitid.message
+bitid.uri
 ```
 
-This is the message to sign (the challenge). For instance :
+This is the uri which will trigger the wallet when clicked (or scanned as QRcode). For instance :
 
 ```
-Bitcoin Signed Message:
 bitid://bitid-demo.herokuapp.com/callback?x=987f20277c015ce7
 ```
 
@@ -47,7 +46,7 @@ bitid://bitid-demo.herokuapp.com/callback?x=987f20277c015ce7
 bitid.qrcode
 ```
 
-The same message, but on QRcode format (this is actualy an URL pointing to the QRcode image).
+The same uri, but on QRcode format (this is actualy an URL pointing to the QRcode image).
 
 ### Verification
 

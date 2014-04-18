@@ -6,7 +6,6 @@ class Bitid
 
   SCHEME = 'bitid'
   PARAM_NONCE = 'x'
-  SIGNATURE_HEADER = "Bitcoin Signed Message:\n"
 
   attr_accessor :nonce, :callback, :signature, :uri
 
@@ -25,19 +24,19 @@ class Bitid
   end
 
   def signature_valid?
-    BitcoinCigs.verify_message(@address, @signature, message)
+    BitcoinCigs.verify_message(@address, @signature, uri)
   end
 
   def qrcode
-    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + CGI::escape(message)
+    "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=" + CGI::escape(uri)
   end
 
   def nonce
     CGI::parse(@uri.query)[PARAM_NONCE][0]
   end
 
-  def message
-    SIGNATURE_HEADER + @uri.to_s
+  def uri
+    @uri.to_s
   end
 
   def callback

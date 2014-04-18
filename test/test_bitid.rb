@@ -8,7 +8,7 @@ class TestBitid < Test::Unit::TestCase
     @callback = "http://localhost:3000/callback"
     @uri = "bitid://localhost:3000/callback?x=fe32e61882a71074"
     @address = "1HpE8571PFRwge5coHiFdSCLcwa7qetcn"
-    @signature = "H1cDvRY+UbKNbwlHuS6rJ9376C7RF7NxYB6fZTNEOQo4/UFXezcK0uv1+3/fejJJAMKrnkGEo1Ue00pWB8Gu9SQ="
+    @signature = "IPKm1/EZ1AKscpwSZI34F5NiEkpdr7QKHeLOPPSGs6TXJHULs7CSNtjurcfg72HNuKvL2YgNXdOetQRyARhX7bg="
   end
 
   def test_build_uri
@@ -27,14 +27,14 @@ class TestBitid < Test::Unit::TestCase
   def test_build_qrcode
     bitid = Bitid.new(nonce:@nonce, callback:@callback)
 
-    uri_encoded = CGI::escape(bitid.message)
+    uri_encoded = CGI::escape(bitid.uri)
     assert_equal "http://chart.apis.google.com/chart?cht=qr&chs=300x300&chl=#{uri_encoded}", bitid.qrcode
   end
 
-  def test_build_message
+  def test_build_uri
     bitid = Bitid.new(nonce:@nonce, callback:@callback)
 
-    assert_match /\ABitcoin Signed Message\:\nbitid\:\/\/localhost\:3000\/callback\?x=/, bitid.message
+    assert_match /\Abitid\:\/\/localhost\:3000\/callback\?x=/, bitid.uri
   end
 
   def test_verify_uri

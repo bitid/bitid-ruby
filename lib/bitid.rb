@@ -6,14 +6,16 @@ class Bitid
 
   SCHEME = 'bitid'
   PARAM_NONCE = 'x'
+  PARAM_UNSECURE = 'u'
 
-  attr_accessor :nonce, :callback, :signature, :uri
+  attr_accessor :nonce, :callback, :signature, :uri, :unsecure
 
   def initialize hash={}
     @nonce = hash[:nonce]
     @callback = URI(hash[:callback])
     @signature = hash[:signature]
     @address = hash[:address]
+    @unsecure = hash[:unsecure]
     @uri = hash[:uri].nil? ? build_uri : URI(hash[:uri])
   end
 
@@ -48,7 +50,11 @@ class Bitid
   def build_uri
     uri = @callback
     uri.scheme = SCHEME
-    uri.query = URI.encode_www_form({PARAM_NONCE => @nonce})
+    params = {PARAM_NONCE => @nonce}
+    if @unsecure
+      params = params.merge({PARAM_UNSECURE => 1})
+    end
+    uri.query = URI.encode_www_form(params)
     uri
   end
 end

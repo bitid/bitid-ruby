@@ -34,7 +34,13 @@ class TestBitid < Test::Unit::TestCase
   def test_build_uri
     bitid = Bitid.new(nonce:@nonce, callback:@callback)
 
-    assert_match /\Abitid\:\/\/localhost\:3000\/callback\?x=/, bitid.uri
+    assert_match /\Abitid\:\/\/localhost\:3000\/callback\?x=[a-z0-9]+\Z/, bitid.uri
+  end
+
+  def test_build_uri_with_unsecure_param
+    bitid = Bitid.new(nonce:@nonce, callback:@callback, unsecure:true)
+
+    assert_match /\Abitid\:\/\/localhost\:3000\/callback\?x=[a-z0-9]+&u=1\Z/, bitid.uri
   end
 
   def test_verify_uri

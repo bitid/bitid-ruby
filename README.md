@@ -28,7 +28,15 @@ bitid = Bitid.new(nonce:@nonce, callback:@callback)
 ```
 
 `nonce` is an random string associated with the user's session id.
-`callback` is the url where the wallet will post the challenge's signature.
+`callback` is the url without the scheme where the wallet will post the challenge's signature.
+
+One example of callback could be `www.site.com/callback`. A callback cannot have parameters. By
+default the POST call will be done using `https`. If you need to tell the wallet to POST on
+`http` then you need to add `unsecure:true`.
+
+```
+bitid = Bitid.new(nonce:@nonce, callback:@callback, unsecure:true)
+```
 
 Once the `Bitid` object is initialized, you have access to the following methods :
 
@@ -42,11 +50,19 @@ This is the uri which will trigger the wallet when clicked (or scanned as QRcode
 bitid://bitid-demo.herokuapp.com/callback?x=987f20277c015ce7
 ```
 
+If you added `unsecure:true` when initializing the object then uri will be like :
+
+```
+bitid://bitid-demo.herokuapp.com/callback?x=987f20277c015ce7&u=1
+```
+
+To get the uri as QRcode :
+
 ```
 bitid.qrcode
 ```
 
-The same uri, but on QRcode format (this is actualy an URL pointing to the QRcode image).
+This is actualy an URL pointing to the QRcode image.
 
 ### Verification
 

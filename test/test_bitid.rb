@@ -81,5 +81,14 @@ class TestBitid < Test::Unit::TestCase
   def test_extract_nonce
     bitid = Bitid.new(address:@address, uri:@uri, signature:@signature, callback:@callback)
     assert_equal "fe32e61882a71074", bitid.nonce
-  end  
+  end
+
+  def test_testnet
+    bitid = Bitid.new(
+      address:"mpsaRD2ugdCY1iFrQdsDYRT4qeZzCnvGHW", 
+      uri:"bitid://bitid.bitcoin.blue/callback?x=3893a2a881dd4a1e&u=1",
+      signature:"ID5heI0WOeWoryGhZHaxoOH5vkmmcwDsfc4nDQ5vPcXSWh2jyETDGkSNO5zk4nbESGD6k0tgFxYA3HzlEGOf5Uc=",
+      callback:"http://bitid.bitcoin.blue/callback")
+    assert bitid.signature_valid?
+  end
 end

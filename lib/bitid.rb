@@ -26,7 +26,7 @@ class Bitid
   end
 
   def signature_valid?
-    BitcoinCigs.verify_message(@address, @signature, uri)
+    BitcoinCigs.verify_message(@address, @signature, uri, { :network => get_network })
   end
 
   def qrcode
@@ -56,5 +56,9 @@ class Bitid
     end
     uri.query = URI.encode_www_form(params)
     uri
+  end
+
+  def get_network
+    @address[0] == "1" ? :mainnet : :testnet
   end
 end
